@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import pymongo
 
 app = FastAPI()
 
@@ -17,9 +18,16 @@ class DiaryEntry(BaseModel):
     entry: str
     date: str  # Added date field
 
+def create_connection():
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = client["Reviews"]
+    collection = db["reviews"]
+    return collection
+
 @app.post("/submit/")
 async def submit_entry(diary_entry: DiaryEntry):
-    # Here you can process the diary entry, e.g., save it to a database
+    collection=create_connection()
+    collection.insert_one(diary_entry)
     return {"message": "Diary entry received", "entry": diary_entry.entry, "date": diary_entry.date}
 
 if __name__ == "__main__":
