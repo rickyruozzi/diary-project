@@ -27,7 +27,8 @@ def create_connection():
 @app.post("/submit/")
 async def submit_entry(diary_entry: DiaryEntry):
     collection=create_connection()
-    collection.insert_one(diary_entry)
+    collection.insert_one(diary_entry.dict())
+
     return {"message": "Diary entry received", "entry": diary_entry.entry, "date": diary_entry.date}
 
 if __name__ == "__main__":
