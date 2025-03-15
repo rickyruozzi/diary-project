@@ -1,3 +1,6 @@
 fastapi
 uvicorn
 pymongo
+react
+react-dom
+vite
