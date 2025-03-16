@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 pymongo
+jinja2
 react
 react-dom
 vite
