@@ -1,8 +1,16 @@
-import { useState } from 'react'
-import diaryLogo from './assets/diary.png'
-import './App.css'
+import React, { useState } from 'react';
+import diaryLogo from './assets/diary.png';
+import './App.css';
+import IconMenu from './IconMenu'; // Import IconMenu
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for menu visibility
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
+  };
+
   const [diaryEntry, setDiaryEntry] = useState(''); // State for diary entry
   const [date, setDate] = useState(''); // State for date
 
@@ -54,8 +62,10 @@ function App() {
           <input type='submit' color='white' value='Invia'></input>
         </form>
       </div>
+      <button onClick={handleMenuToggle} className="dropdown-button">•••</button> {/* Button with three dots */}
+      {isMenuOpen && <IconMenu />} {/* Render the IconMenu when the button is clicked */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
