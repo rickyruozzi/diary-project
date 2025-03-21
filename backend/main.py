@@ -42,6 +42,11 @@ async def read_root(request:Request):
         content = f.read() #ne legge il contenuto
     return HTMLResponse(content)    #restituisce in output la pagina renderizzata
 
+@app.get('/test',response_class=HTMLResponse)
+async def test(request:Request):
+    with open("backend/templates/testPage.html") as f: #apre il file della pagina dawith open("backend/templates/index.html") as f: #apre il file della pagina da mostrare
+        content = f.read() #ne legge il contenuto
+    return HTMLResponse(content)
 
 if __name__ == "__main__":
     import uvicorn

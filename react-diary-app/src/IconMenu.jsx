@@ -5,20 +5,23 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link for navigation
+import { Link } from 'react-router-dom'; // Import Link for navigation
+
 
 export default function IconMenu() {
-  const navigate = useNavigate(); // Initialize navigate for navigation
+  // const navigate = useNavigate(); // Initialize navigate for navigation
+
 
   const handleApiInfoClick = () => {
-    navigate('/api-docs'); // Navigate to API documentation
+    window.open('http://localhost:8000/docs', '_blank'); // Open API documentation in a new tab
+
   };
 
   return (
     <Paper sx={{ width: 320, maxWidth: '100%', backgroundColor: 'gray', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <MenuList>
         <MenuItem sx={{ justifyContent: 'center' }}>
-          <ListItemText>delete review</ListItemText>
+          <ListItemText>Delete review</ListItemText>
         </MenuItem>
         <MenuItem sx={{ justifyContent: 'center' }}>
           <ListItemText>Check Reviews</ListItemText>
@@ -27,9 +30,7 @@ export default function IconMenu() {
           <ListItemText>Api info</ListItemText>
         </MenuItem>
       </MenuList>
-      <MenuItem sx={{ justifyContent: 'center', marginTop: 'auto' }} onClick={() => console.log('Menu opened')}>
-        <Typography variant="h6">•••</Typography>
-      </MenuItem>
+
     </Paper>
   );
 }

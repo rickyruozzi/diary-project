@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom'; // Import Routes and Route for navigation
+
+
+import TestPage from './TestPage'; // Correct path to TestPage component
+
+
 import diaryLogo from './assets/diary.png';
 import './App.css';
 import IconMenu from './IconMenu'; // Import IconMenu
 import { BrowserRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for menu visibility
 
+  const Navigate=useNavigate();
+
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
   };
+
+  // function handleIconClick(){
+  //   Navigate('http://localhost:8000/test'); // Navigate to the test endpoint on port 8000
+
+  // }
 
   const [diaryEntry, setDiaryEntry] = useState(''); // State for diary entry
   const [date, setDate] = useState(''); // State for date
@@ -35,7 +49,7 @@ function App() {
   return (
     <>
       <div>
-        <img src={diaryLogo} alt="Logo" className='logo' />
+        <img src={diaryLogo} alt="Logo" className='logo'/>
       </div>
       <div>
         <h2>Personal Diary</h2>
