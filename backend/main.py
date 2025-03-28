@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from bson import ObjectId
 
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -47,6 +48,15 @@ async def test(request:Request):
     with open("backend/templates/testPage.html") as f: #apre il file della pagina dawith open("backend/templates/index.html") as f: #apre il file della pagina da mostrare
         content = f.read() #ne legge il contenuto
     return HTMLResponse(content)
+
+@app.post('/delete/')
+async def delete_entry(entry_id: str):  # Change entry_id type to str for ObjectID
+    print(f"Attempting to delete entry with ID: {entry_id}")  # Log the ObjectID being deleted
+    if not ObjectId.is_valid(entry_id):
+        return {"error": "Invalid ObjectID format"}
+    collection = create_connection()
+    collection.delete_one({"_id": ObjectId(entry_id)})  # Convert entry_id to ObjectId
+    return {"message": "Diary entry deleted"}
 
 if __name__ == "__main__":
     import uvicorn

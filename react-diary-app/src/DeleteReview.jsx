@@ -10,7 +10,8 @@ function DeleteReview() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id :reviewId }), // Send the diary entry and date to the backend
+      body: JSON.stringify({ entry_id: reviewId }), // Send the review ID to the backend
+
     })
     .then(response => response.json())
     .then(data => {
