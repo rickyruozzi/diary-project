@@ -49,7 +49,17 @@ async def test(request:Request):
         content = f.read() #ne legge il contenuto
     return HTMLResponse(content)
 
+@app.get('/reviews/')
+async def get_reviews(limit: int = 5):
+    collection = create_connection()
+    reviews = list(collection.find().sort('date', -1).limit(limit))
+    # Convert ObjectId to string for JSON serialization
+    for review in reviews:
+        review['_id'] = str(review['_id'])
+    return reviews
+
 @app.post('/delete/')
+
 async def delete_entry(entry_id: str):  # Change entry_id type to str for ObjectID
     print(f"Attempting to delete entry with ID: {entry_id}")  # Log the ObjectID being deleted
     if not ObjectId.is_valid(entry_id):
