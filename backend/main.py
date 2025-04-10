@@ -24,6 +24,9 @@ app.add_middleware(
 class DiaryEntry(BaseModel):
     entry: str
     date: str  # Added date field
+    
+class limitOBJ(BaseModel):
+    limit:int
 
 def create_connection():
     client = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -49,10 +52,10 @@ async def test(request:Request):
         content = f.read() #ne legge il contenuto
     return HTMLResponse(content)
 
-@app.get('/reviews/')
-async def get_reviews(limit:int=5):
+@app.post('/reviews/')
+async def get_reviews(OBJ: limitOBJ):
     collection = create_connection()
-    reviews = list(collection.find().sort('date', -1).limit(limit))
+    reviews = list(collection.find().sort('date', -1).limit(OBJ.limit))
     for review in reviews:
         review['_id'] = str(review['_id'])
     return reviews

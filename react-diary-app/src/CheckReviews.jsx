@@ -4,14 +4,16 @@ function CheckReviews() {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [limit, setLimit]=useState(3);
 
     useEffect(() => {
         fetch('http://localhost:8000/reviews/', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
+            body: JSON.stringify({limit:limit})
         })
         .then(response => {
             if (!response.ok) {
@@ -31,11 +33,11 @@ function CheckReviews() {
             setError(error.message);
             setLoading(false);
         });
-    }, []);
+    }, [limit]);
 
     return (
         <div>
-            <h3>Last 3 reviews:</h3>
+            <h3>Last {limit} reviews:</h3>
             {loading ? (
                 <p>Loading reviews...</p>
             ) : error ? (
@@ -60,6 +62,9 @@ function CheckReviews() {
                     </tbody>
                 </table>
             )}
+            <button onClick={()=>{setLimit(3)}}>3</button>
+            <button onClick={()=>{setLimit(5)}}>5</button>
+            <button onClick={()=>{setLimit(10)}}>10</button>
         </div>
     );
 }
